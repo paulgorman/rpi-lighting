@@ -21,6 +21,8 @@ DMX Dimmer pack on channels 1 and 2
 
 ## Halloween 2015
 
+Photos online at: http://presence.irev.net/v/RandomStuff/Halloween2015/
+
 Two themes: 
 
  * Orange/green "nice" mode with seemingly-natural flickering lanterns and sparkling wall lighting 
