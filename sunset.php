@@ -6,7 +6,11 @@
 	At sunrise, turn lighting off
 	Crontab:
 		* * * * * ~/lighting/sunset.php > /dev/null 2>&1
-	DMX Dimmer pack on channels 1 and 2
+	DMX Dimmer pack on channels 1,2,3,4
+	Ch.1 Tree Lantern Street Side
+	Ch.2 Tree Lantern Driveway Side
+	Ch.3 Walkway Far
+	Ch.4 Walkway Near
 	Uses "open lighting architecture" on raspberry pi
 	http://opendmx.net/index.php/Open_Lighting_Architecture
 
@@ -28,11 +32,17 @@ $now = time();
 
 if (($now >= $sunset) && ($now >= $sunrise)) {
 	echo "go sunset\n";
-	system("/usr/local/bin/ola_streaming_client -u 1 -d 150,100,0,0");
+	if (!isset($argv[1])) {
+		system("/usr/local/bin/ola_streaming_client -u 1 -d 255,80,255,255");
+	}
 } elseif (($now <= $sunset) && ($now <= $sunrise)) {
 	echo "night\n";
-	system("/usr/local/bin/ola_streaming_client -u 1 -d 70,50,0,0");
+	if (!isset($argv[1])) {
+		system("/usr/local/bin/ola_streaming_client -u 1 -d 100,50,200,200");
+	}
 } elseif (($now <= $sunset) && ($now >= $sunrise)) {
 	echo "go sunrise\n";
-	system("/usr/local/bin/ola_streaming_client -u 1 -d 0,0,0,0");
+	if (!isset($argv[1])) {
+		system("/usr/local/bin/ola_streaming_client -u 1 -d 0,0,25,25");
+	}
 }

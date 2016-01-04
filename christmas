@@ -1,0 +1,135 @@
+#!/bin/bash
+##############################
+#
+# Christmas 2015
+# presence@irev.net
+#
+##############################
+
+usage() {
+	echo "Christmas Modes"
+	echo "Usage:"
+	echo " christmas full"
+	echo " christmas pulse"
+}
+
+if [ -n "$1" ]; then
+	while [ "$1" != "" ]; do
+		while [ 1 == 1 ]
+		do
+			case $1 in
+				full)
+					treeright=200;
+					treeleft=100;
+					three=255;
+					four=255;
+					gablechimneywhite=255;
+					gablecolorchimneyred=255;
+					housewhite=255;
+					housecolor=255;
+					/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+					sleep 30;
+					;;
+				pulse)
+					j=0;
+					treeright=200;
+					treeleft=100;
+					three=255;
+					four=255;
+					gablechimneywhite=255;
+					gablecolorchimneyred=255;
+					housewhite=255;
+					housecolor=255;
+					/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+					sleep 3;
+					for i in {25..0}
+					do
+						if [ $i -eq 25 ]
+						then
+							i=255;
+						else
+							i=$((i*10));
+						fi
+						gablechimneywhite=255;
+						gablecolorchimneyred=255;
+						housewhite=255;
+						housecolor=$i;
+						/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+						#echo "c $i w 255";
+					done
+					k=0;
+					j=0;
+					for i in {25..1}
+					do
+						if [ $i -eq 25 ]
+						then
+							i=255;
+						else
+							i=$((i*10));
+						fi
+						k=$(($k+1));
+						if [ $k -eq 25 ]
+						then
+							j=255;
+						else
+							j=$((k*10));
+						fi
+						gablechimneywhite=255;
+						gablecolorchimneyred=255;
+						housewhite=$i;
+						housecolor=$j;
+						/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+						#echo "c $j w $i";
+					done
+					j=0;
+					k=0;
+					for i in {25..1}
+					do
+						if [ $i -eq 25 ]
+						then
+							i=255;
+						else
+							i=$((i*10));
+						fi
+						k=$(($k+1));
+						if [ $k -eq 25 ]
+						then
+							j=255;
+						else
+							j=$((k*10));
+						fi
+						gablechimneywhite=255;
+						gablecolorchimneyred=$i;
+						housewhite=$j;
+						housecolor=$i;
+						/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+						#echo "c $i w $j";
+					done
+					for i in {1..25}
+					do
+						if [ $i -eq 25 ]
+						then
+							i=255;
+						else
+							i=$((i*10));
+						fi
+						gablechimneywhite=255;
+						gablecolorchimneyred=$i;
+						housewhite=255;
+						housecolor=$i;
+						/usr/local/bin/ola_streaming_client -u 1 -d $treeright,$treeleft,$three,$four,$gablechimneywhite,$gablecolorchimneyred,$housewhite,$housecolor
+						#echo "c $i w 255";
+					done
+					;;
+				*)
+					usage
+					exit 1
+					;;
+				esac
+			done
+			shift
+		done
+	else
+		usage
+		exit 1
+fi
