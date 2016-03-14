@@ -20,9 +20,11 @@
 /* Figure out timezone offset, in hours, from GMT, watching for DST and standard time */
 date_default_timezone_set('America/Los_Angeles');
 $offset = date_offset_get(date_create(date('Y-m-d'), timezone_open('America/Los_Angeles')))/60/60;
-//echo "offset: $offset\n";
-//echo date("D M d Y"). ', sunrise time : ' .date_sunrise(time(), SUNFUNCS_RET_STRING, 36.1215, -115.1739, 90, $offset) . "\n";
-//echo date("D M d Y"). ', sunset time : ' .date_sunset(time(), SUNFUNCS_RET_STRING, 36.1215, -115.1739, 90, $offset) . "\n";
+if (isset($argv[1])) {
+	echo "offset: $offset\n";
+	echo date("D M d Y"). ', sunrise time : ' .date_sunrise(time(), SUNFUNCS_RET_STRING, 36.1215, -115.1739, 90, $offset) . "\n";
+	echo date("D M d Y"). ', sunset time : ' .date_sunset(time(), SUNFUNCS_RET_STRING, 36.1215, -115.1739, 90, $offset) . "\n";
+}
 
 /* sunset in seconds */
 $sunrise = strtotime(date_sunrise(time(), SUNFUNCS_RET_STRING, 36.1215, -115.1739, 90, $offset));
@@ -33,12 +35,12 @@ $now = time();
 if (($now >= $sunset) && ($now >= $sunrise)) {
 	echo "go sunset\n";
 	if (!isset($argv[1])) {
-		system("/usr/local/bin/ola_streaming_client -u 1 -d 255,80,255,255");
+		system("/usr/local/bin/ola_streaming_client -u 1 -d 255,255,255,255");
 	}
 } elseif (($now <= $sunset) && ($now <= $sunrise)) {
 	echo "night\n";
 	if (!isset($argv[1])) {
-		system("/usr/local/bin/ola_streaming_client -u 1 -d 100,50,200,200");
+		system("/usr/local/bin/ola_streaming_client -u 1 -d 128,128,200,200");
 	}
 } elseif (($now <= $sunset) && ($now >= $sunrise)) {
 	echo "go sunrise\n";
