@@ -40,7 +40,10 @@ while (1==1) {
 }
 
 function lights ($a, $b, $c, $d) {
-	echo date('s ') . str_pad("stree:$a",12) . str_pad("ntree:$b",12) . str_pad("color:$c",12) . "white:$d\n";
+	global $argv;
+	if (isset($argv[1])) {
+		echo date('s ') . str_pad("stree:$a",12) . str_pad("ntree:$b",12) . str_pad("color:$c",12) . "white:$d\n";
+	}
 	shell_exec("/usr/bin/ola_streaming_client -u 1 -d $a,$b,$c,$d");
 }
 
