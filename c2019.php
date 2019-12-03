@@ -65,7 +65,7 @@ function evening() {
 			}
 		}
 		// whites go up, color stays up
-		if ($direction_white == 1 && $direction_color == 0) {
+		if ($direction_white == 1 && $direction_color == 0 && $animation_loop) {
 			$white = $white + $gradient;
 			if ($white > 255) {
 				$white = 255;
@@ -74,7 +74,7 @@ function evening() {
 			}
 		}
 		// whites go down, color string stays up
-		if ($direction_white == 0 && $direction_color == 0) {
+		if ($direction_white == 0 && $direction_color == 0 && $animation_loop) {
 			$white = $white - $gradient;
 			if ($white < 0) {
 				$white = 0;
@@ -82,7 +82,7 @@ function evening() {
 			}
 		}
 		// whites stays up, color cycles down
-		if ($direction_white == 0 && $direction_color == 1) {
+		if ($direction_white == 0 && $direction_color == 1 && $animation_loop) {
 			$color = $color - $gradient;
 			if ($color < 0) {
 				$color = 0;
